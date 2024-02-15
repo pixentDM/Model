@@ -1,3 +1,4 @@
 from django.shortcuts import render
 
-# Create your views here.
+def applicants(request):    # 오디션 지원자 현황
+    return render(request, "applicant/applicants_list.html")

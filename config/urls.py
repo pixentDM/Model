@@ -17,15 +17,18 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 from config.views import index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", index)
+    path("", index),
+    path("applicant/", include("applicant.urls"))
 ]
 
-# urlpatterns += static(
-#     prefix=settings.MEDIA_ROOT
-# ) 이미지 업로드 필요시 주석 제거!!!(settings.py 파일 밑부분도 주석 제거해야함)
+urlpatterns += static(
+    prefix=settings.MEDIA_URL,
+    document_root=settings.MEDIA_ROOT
+)
+# 이미지 업로드 필요시 주석 제거!!!(settings.py 파일 밑부분도 주석 제거해야함)

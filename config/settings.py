@@ -30,8 +30,8 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'ec2-43-201-82-33.ap-northeast-2.compute.amazonaws.com',
     # '0.0.0.0:8080',
-    # 'localhost',
-    # '127.0.0.1',
+    'localhost',    # 배포 시 주석 처리해야함
+    '127.0.0.1',    # 배포 시 주석 처리해야함
     # '*',
 ]
 
@@ -40,7 +40,7 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
-    "applicant",            # 오디션 지원자
+    'applicant',            # 오디션 지원자
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -129,8 +129,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "staticmodel"]
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-# MEDIA_URL = "media/"
-# MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_URL = "media/"
+MEDIA_ROOT = BASE_DIR / "media"
 # 이미지 필요할 때 주석 제거하기!!(config/urls.py 파일 밑부분도 주석 제거해야함)
 
 
