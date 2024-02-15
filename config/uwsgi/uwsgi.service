@@ -1,0 +1,16 @@
+[Unit]
+Desription=uWSGI service
+After=syslog.target
+
+[Service]
+ExecStar=/home/ubuntu/myvenv/bin/uwsgi -i /srv/Model/cofig/uwsgi/mystie.ini
+
+Restart=always
+KillSignal=SIGQUIT
+Type=notify
+StandardError=syslog
+NotifyAccess=all
+
+[Install]
+WantedBy=multi-user.target
+
