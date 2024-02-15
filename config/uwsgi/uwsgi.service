@@ -1,9 +1,9 @@
 [Unit]
-Desription=uWSGI service
+Description=uWSGI service
 After=syslog.target
 
 [Service]
-ExecStar=/home/ubuntu/myvenv/bin/uwsgi -i /srv/Model/cofig/uwsgi/mystie.ini
+ExecStart=/home/ubuntu/myvenv/bin/uwsgi -i /srv/Model/config/uwsgi/mysite.ini
 
 Restart=always
 KillSignal=SIGQUIT
