@@ -20,3 +20,6 @@ class Applicant(models.Model):
     data_completion = models.DateTimeField(auto_now=False, verbose_name='데이터 백업일')
     data_check = models.DateTimeField(verbose_name='데이터 확인일자(매니저)')
     # charge = models.ForeignKey(employees, on_delete=models.CASCADE, verbose_name='담당자')
+
+    def __str__(self):                  # Applicant 모델 데이터 조회 결과에 속성값 보여주기
+        return self.applicant_name

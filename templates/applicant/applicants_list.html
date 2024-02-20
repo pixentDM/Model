@@ -1,9 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-</head>
-<body>
-    <h1>applicants_list</h1>
-</body>
-</html>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+<div class="container my-3">
+    <table class="table">
+        <thead>
+        <tr class="thead-dark">
+            <th>지원자 고유번호</th>
+            <!-- <th>이미지</th>-->
+            <th>지원자 명</th>
+            <th>성별</th>
+            <th>국가</th>
+            <th>생년월일</th>
+            <th>키</th>
+            <th>몸무게</th>
+            <th>가슴 size</th>
+            <th>허리 size</th>
+            <th>엉덩이 size</th>
+            <th>사용가능 언어</th>
+            <th>인스타그램 링크</th>
+            <th>인스타그램 아이디</th>
+            <th>지원일</th>
+            <th>지원일 순차</th>
+            <th>데이터 백업일</th>
+            <th>데이터 확인일자(매니저)</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if applicants_list %}
+        {% for applicant in applicants_list%}
+        <tr>
+            <td>{{ applicant.unique_no }}</td>
+            <td>
+                <a href="{% url 'applicant:detail' applicant.id %}">{{ applicant.applicant_name}}</a>
+            </td>
+                <td>{{ applicant.gender }}</td>
+                <td>{{ applicant.nationality }}</td>
+                <td>{{ applicant.birth_year }}</td>
+                <td>{{ applicant.height }}</td>
+                <td>{{ applicant.weight }}</td>
+                <td>{{ applicant.chest }}</td>
+                <td>{{ applicant.waist }}</td>
+                <td>{{ applicant.hips }}</td>
+                <td>{{ applicant.languages }}</td>
+                <td>{{ applicant.instagram_link }}</td>
+                <td>{{ applicant.instagram_id }}</td>
+                <td>{{ applicant.application_date }}</td>
+                <td>{{ applicant.application_day }}</td>
+                <td>{{ applicant.data_completion }}</td>
+                <td>{{ applicant.data_check }}</td>
+            </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td colspan="17">지원자 목록이 없습니다.</td>
+        </tr>
+        {% endif %}
+        </tbody>
+    </table>
+</div>
+
+
+
