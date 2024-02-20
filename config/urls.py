@@ -25,10 +25,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("", index),
     path("applicant/", include("applicant.urls"))
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) # 부트스트랩 적용을 위해 추가 된 코드
 
 urlpatterns += static(
     prefix=settings.MEDIA_URL,
-    document_root=settings.MEDIA_ROOT
+    document_root=settings.MEDIA_ROOT,
+
 )
 # 이미지 업로드 필요시 주석 제거!!!(settings.py 파일 밑부분도 주석 제거해야함)

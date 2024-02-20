@@ -1,9 +1,16 @@
+<!DOCTYPE html>
 {% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
 <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
-<div class="container my-3">
+<link rel="stylesheet" type="text/css" href="{% static 'applicant/applicant_css.css' %}">
+<div class="container my-3" >
     <table class="table">
         <thead>
-        <tr class="thead-dark">
+        <tr class="thead-dark" >
             <th>지원자 고유번호</th>
             <!-- <th>이미지</th>-->
             <th>지원자 명</th>
@@ -57,6 +64,5 @@
         </tbody>
     </table>
 </div>
-
-
-
+</body>
+</html>

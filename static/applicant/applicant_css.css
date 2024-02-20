@@ -1,0 +1,14 @@
+table {
+  width: 100%;
+}
+
+
+/* th, td { 이 코드 주석 풀면 테이블이 오른쪽으로 붙음............
+  min-width: 100px;
+  word-wrap: break-word;
+} */
+
+
+div#comment #tb1 th,td{border:1px solid black; border-spacing:20px 20px;} /* 칸 표시 */
+
+
