@@ -8,4 +8,5 @@ app_name = "applicant"
 urlpatterns = [
     path("applicants_list/", views.applicants, name="applicants"),
     path('<int:applicant_id>/', views.detail, name='detail'),
+    path('<int:applicant_id>/modify', views.modify, name='applicants_modify'),
 ]

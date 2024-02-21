@@ -19,9 +19,7 @@
             <th>생년월일</th>
             <th>키</th>
             <th>몸무게</th>
-            <th>가슴 size</th>
-            <th>허리 size</th>
-            <th>엉덩이 size</th>
+            <th>size</th>
             <th>사용가능 언어</th>
             <th>인스타그램 링크</th>
             <th>인스타그램 아이디</th>
@@ -44,11 +42,11 @@
                 <td>{{ applicant.birth_year }}</td>
                 <td>{{ applicant.height }}</td>
                 <td>{{ applicant.weight }}</td>
-                <td>{{ applicant.chest }}</td>
-                <td>{{ applicant.waist }}</td>
-                <td>{{ applicant.hips }}</td>
+                <td>{{ applicant.chest }} - {{ applicant.waist }} - {{ applicant.hips }}</td>
                 <td>{{ applicant.languages }}</td>
-                <td>{{ applicant.instagram_link }}</td>
+                <td>
+                    <a href="{{ applicant.instagram_link }}" target="_blank"> {{ applicant.instagram_link }} </a>
+                </td>
                 <td>{{ applicant.instagram_id }}</td>
                 <td>{{ applicant.application_date }}</td>
                 <td>{{ applicant.application_day }}</td>
