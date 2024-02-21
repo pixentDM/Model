@@ -82,6 +82,7 @@
     </div>
     <!-- 로그인, 회원가입 구현하면 IF함수 써서 담당자일때만 뜰 수 있도록 수정 -->
     <div class="my-3">
+        <a href="{% url 'applicant:applicants' %}" class="btn btn-sm btn-outline-secondary">목록</a>
         <a href="{% url 'applicant:applicants_modify' applicant.id %}"
             class="btn btn-sm btn-outline-secondary">수정</a>
     </div>

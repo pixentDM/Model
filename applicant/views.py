@@ -26,12 +26,14 @@ def modify(request, applicant_id):
     """
     applicant = get_object_or_404(Applicant, id=applicant_id)
     if request.method == 'POST':
-        # 폼에서 전송된 데이터를 이용해 객체를 업데이트합니다.
+        # 폼에서 전송된 데이터를 이용해 객체 업데이트
         form = ApplicantForm(request.POST, instance=applicant)
         if form.is_valid():
             form.save()
-            return redirect('applicants')  # 예: 목록 페이지로 리다이렉트
+            # return redirect('applicants')  # 목록 페이지로 리다이렉트
+            return redirect('applicant:detail', applicant_id=applicant_id)
+
     else:
-        # 기존의 객체 정보로 폼을 초기화합니다.
+        # 기존의 객체 정보로 폼을 초기화
         form = ApplicantForm(instance=applicant)
-    return render(request, 'applicant/applicants_modify.html', {'form': form})
+    return render(request, 'applicant/applicants_modify.html', {'form': form, 'applicant': applicant})

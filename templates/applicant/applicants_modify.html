@@ -12,77 +12,13 @@
     <div class="detail-header">
         정보 수정
     </div>
-    <div class="detail-item">
-        <div class="detail-item-title">지원자 고유번호</div>
-        <div class="detail-item-content" >{{ form.unique_no }}</div>
-    </div>
-    <div class="detail-item">
-        <div class="detail-item-title">지원자 명</div>
-        <div class="detail-item-content">{{ form.applicant_name }}</div>
-    </div>
-    <div class="detail-item">
-        <div class="detail-item-title">성별</div>
-        <div class="detail-item-content">{{ form.gender }}</div>
-    </div>
-    <div class="detail-item">
-        <div class="detail-item-title">국가</div>
-        <div class="detail-item-content">{{ form.nationality }}</div>
-    </div>
-    <div class="detail-item">
-        <div class="detail-item-title">생년월일</div>
-        <div class="detail-item-content">{{ form.birth_year }}</div>
-    </div>
-    <div class="detail-item">
-        <div class="detail-item-title">키</div>
-        <div class="detail-item-content">{{ form.height }}cm</div>
-    </div>
-    <div class="detail-item">
-        <div class="detail-item-title">몸무게</div>
-        <div class="detail-item-content">{{ form.weight }}kg</div>
-    </div>
-    <div class="detail-item">
-        <div class="detail-item-title">가슴 size</div>
-        <div class="detail-item-content">{{ form.chest }}</div>
-    </div>
-    <div class="detail-item">
-        <div class="detail-item-title">허리 size</div>
-        <div class="detail-item-content">{{ form.waist }}</div>
-    </div>
-    <div class="detail-item">
-        <div class="detail-item-title">엉덩이 size</div>
-        <div class="detail-item-content">{{ form.hips }}</div>
-    </div>
-    <div class="detail-item">
-        <div class="detail-item-title">사용가능 언어</div>
-        <div class="detail-item-content">{{ form.languages }}</div>
-    </div>
-    <div class="detail-item">
-        <div class="detail-item-title">인스타그램 링크</div>
-        <div class="detail-item-content">{{ form.instagram_link }}</div>
-    </div>
-    <div class="detail-item">
-        <div class="detail-item-title">인스타그램 아이디</div>
-        <div class="detail-item-content">{{ form.instagram_id }}</div>
-    </div>
-    <div class="detail-item">
-        <div class="detail-item-title">지원일</div>
-        <div class="detail-item-content">{{ form.application_date }}</div>
-    </div>
-    <div class="detail-item">
-        <div class="detail-item-title">지원일 순차</div>
-        <div class="detail-item-content">{{ form.application_day }}</div>
-    </div>
-    <div class="detail-item">
-        <div class="detail-item-title">데이터 백업일</div>
-        <div class="detail-item-content">{{ form.data_completion }}</div>
-    </div>
-    <div class="detail-item">
-        <div class="detail-item-title">데이터 확인일자(매니저)</div>
-        <div class="detail-item-content">{{ form.data_check }}</div>
-    </div>
-
-    <button type="submit" class="btn btn-primary">저장</button>
+    <!-- 폼 시작 -->
+    <form method="post" action="{% url 'applicant:applicants_modify' applicant_id=applicant.id %}">
+        {% csrf_token %}
+        <!-- form.as_p를 사용하여 나머지 필드를 자동으로 렌더링. -->
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-sm btn-outline-secondary">저장</button>
+    </form>
 </div>
-
 </body>
 </html>
