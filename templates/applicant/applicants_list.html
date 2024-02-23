@@ -3,11 +3,45 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'applicant/applicant_css.css' %}">
 </head>
 <body>
-<link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'applicant/applicant_css.css' %}">
-<div class="container my-3" >
+<div class="container my-3">
+    {% if error_message %}
+    <div class="alert alert-danger">
+        {{ error_message }}
+    </div>
+    {% endif %}
+    <!-- 검색 폼 start -->
+    <div class="row justify-content-end my-3">
+        <form id="searchForm" method="get" action="{% url 'applicant:applicants' %}" class="col-4 input-group">
+            <select name="search_field" id="search_field" class="custom-select">
+                <option value="applicant_name">이름</option>
+                <option value="gender">성별</option>
+                <option value="nationality">국가</option>
+                <option value="birth_year">생년월일(ex. 2024-02-23)</option>
+                <option value="height">키</option>
+                <option value="weight">몸무게</option>
+                <option value="chest">가슴 size</option>
+                <option value="waist">허리 size</option>
+                <option value="hips">엉덩이 size</option>
+                <option value="languages">사용가능언어</option>
+                <option value="instagram_link">인스타그램 링크</option>
+                <option value="instagram_id">인스타그램 아이디</option>
+                <option value="application_date">지원일</option>
+                <option value="application_day">지원일 순차</option>
+                <option value="data_completion">데이터 백업일</option>
+                <option value="data_check">데이터 확인일자(매니저)</option>
+            </select>
+            <input type="text" class="form-control" name="kw" value="{{ kw|default_if_none:'' }}">
+            <input type="hidden" name="page" value="{{ page }}">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit">검색</button>
+            </div>
+        </form>
+    </div>
+    <!-- 검색 폼 end -->
     <table class="table">
         <thead>
         <tr class="thead-dark" >
@@ -61,6 +95,67 @@
         {% endif %}
         </tbody>
     </table>
+    <!-- 페이징 처리 시작 -->
+    <ul class="pagination justify-content-center">
+        <!-- 이전 페이지 -->
+        {% if applicants_list.has_previous %}
+        <li class="page-item">
+            <a class="page-link"
+                data-page="{{ applicants_list.previous_page_number }}" href="#">이전</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">
+                이전
+            </a>
+        </li>
+        {% endif %}
+        <!-- 페이지 리스트 -->
+        {% for page_number in applicants_list.paginator.page_range %}
+        {% if page_number >= applicants_list.number|add:-5 and page_number <= applicants_list.number|add:5 %}
+            {% if page_number == applicants_list.number %}
+            <li class="page-item active" aria-current="page">
+                <a class="page-link" data-page="{{ page_number }}" href="#">
+                    {{ page_number }}
+                </a>
+            </li>
+            {% else %}
+            <li class="page-item">
+                <a class="page-link" data-page="{{ page_number }}" href="#">
+                    {{ page_number }}
+                </a>
+            </li>
+            {% endif %}
+        {% endif %}
+        {% endfor %}
+        <!-- 다음 페이지 -->
+        {% if applicants_list.has_next %}
+        <li class="page-item">
+            <a class="page-link" data-page="{{ applicants_list.next_page_number }}" href="#">다음</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">
+                다음
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+    <!-- 페이징 처리 끝 -->
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    $(".page-link").on('click', function(e) {
+        e.preventDefault();
+        var page = $(this).data("page");
+        var form = $("#searchForm");
+        form.find('input[name="page"]').val(page);
+        form.submit();
+    });
+});
+</script>
+
 </body>
 </html>
