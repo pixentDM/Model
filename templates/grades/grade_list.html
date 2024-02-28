@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'applicant/applicant_css.css' %}">
+</head>
+<body>
+<div class="container my-3">
+    <table class="table">
+        <thead>
+        <tr class="thead-dark">
+            <th>지원자 고유번호</th>
+            <th>지원자 명</th>
+            <th>성별</th>
+            <th>국가</th>
+            <th>생년월일</th>
+            <th>키</th>
+            <th>몸무게</th>
+            <th>size</th>
+            <th>사용가능 언어</th>
+            <th>인스타그램 링크</th>
+            <th>1차 합격 여부</th>
+            <th>2차 합격 여부</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for grade in all_grades %}
+        <tr>
+            <td>{{ grade.applicant.unique_no }}</td>
+            <td>{{ grade.applicant.applicant_name}}</td>
+            <td>{{ grade.applicant.gender }}</td>
+            <td>{{ grade.applicant.nationality }}</td>
+            <td>{{ grade.applicant.birth_year }}</td>
+            <td>{{ grade.applicant.height }}</td>
+            <td>{{ grade.applicant.weight }}</td>
+            <td>{{ grade.applicant.chest }} - {{ grade.applicant.waist }} - {{ grade.applicant.hips }}</td>
+            <td>{{ grade.applicant.languages }}</td>
+            <td>
+                <a href="{{ grade.applicant.instagram_link }}" target="_blank"> {{ grade.applicant.instagram_id }} </a>
+            </td>
+            <td>{{ grade.firstStage_grade }}</td>
+            <td>{{ grade.secondStage_grade }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="12">지원자 목록이 없습니다.</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+</body>
+</html>

@@ -24,7 +24,8 @@ from config.views import index
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", index),
-    path("applicant/", include("applicant.urls"))
+    path("applicant/", include("applicant.urls")),
+    path("grades/",  include("grades.urls")),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) # 부트스트랩 적용을 위해 추가 된 코드
 
 urlpatterns += static(
