@@ -19,8 +19,6 @@ class Applicant(models.Model):
     data_completion = models.DateTimeField(auto_now=False, verbose_name='데이터 백업일')
     data_check = models.DateTimeField(verbose_name='데이터 확인일자(매니저)')
     employee = models.ForeignKey('employees.Employees', on_delete=models.CASCADE)                  # 직원 테이블 PK
-    # file = models.ForeignKey('file.File', on_delete=models.CASCADE)                               # 파일 테이블 PK
-    # img = models.ImageField("이미지", upload_to="file", blank=True)
     # charge = models.ForeignKey(employees, on_delete=models.CASCADE, verbose_name='담당자')
 
     class Meta:

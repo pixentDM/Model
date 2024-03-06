@@ -76,12 +76,12 @@ def applicants(request):    # 오디션 지원자 현황
                 }
                 return render(request, 'applicant/applicants_list.html', context)
 
-    # applicants_list = Applicant.objects.filter(query).order_by('-data_completion', 'application_date__date',
-    #                                                            'unique_no').distinct()
-
     # 데이터 정렬(데이터 백업일_내림차순 => 지원일_오름차순 => 지원자 고유번호_오름차순)
-    applicants_list = Applicant.objects.filter(query).order_by('-data_completion__date', 'application_date',
-                                                              'unique_no').distinct()
+    # applicants_list = Applicant.objects.filter(query).order_by('-data_completion__date', 'application_date',
+    #                                                           'unique_no').distinct()
+    applicants_list = Applicant.objects.filter(query).prefetch_related('file_set').order_by('-data_completion__date',
+                                                                                            'application_date',
+                                                                                            'unique_no').distinct()
 
     # 페이징 처리
     paginator = Paginator(applicants_list, 15)  # 페이지당 15개씩 보여주기
@@ -121,7 +121,7 @@ def modify(request, applicant_id):
     applicant = get_object_or_404(Applicant, id=applicant_id)
     if request.method == 'POST':
         # 폼에서 전송된 데이터를 이용해 객체 업데이트
-        form = ApplicantForm(request.POST, instance=applicant)
+        form = ApplicantForm(request.POST, request.FILES, instance=applicant)
         if form.is_valid():
             form.save()
             return redirect('applicant:detail', applicant_id=applicant_id)
@@ -129,4 +129,9 @@ def modify(request, applicant_id):
     else:
         # 기존의 객체 정보로 폼을 초기화
         form = ApplicantForm(instance=applicant)
-    return render(request, 'applicant/applicants_modify.html', {'form': form, 'applicant': applicant})
+
+    context = {
+        'form': form,
+        'applicant': applicant
+    }
+    return render(request, 'applicant/applicants_modify.html', context)

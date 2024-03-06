@@ -46,8 +46,8 @@
         <thead>
         <tr class="thead-dark" >
             <th>지원자 고유번호</th>
-            <!-- <th>이미지</th>-->
             <th>지원자 명</th>
+            <th>이미지</th>
             <th>성별</th>
             <th>국가</th>
             <th>생년월일</th>
@@ -71,22 +71,31 @@
             <td>
                 <a href="{% url 'applicant:detail' applicant.id %}">{{ applicant.applicant_name}}</a>
             </td>
-                <td>{{ applicant.gender }}</td>
-                <td>{{ applicant.nationality }}</td>
-                <td>{{ applicant.birth_year }}</td>
-                <td>{{ applicant.height }}</td>
-                <td>{{ applicant.weight }}</td>
-                <td>{{ applicant.chest }} - {{ applicant.waist }} - {{ applicant.hips }}</td>
-                <td>{{ applicant.languages }}</td>
-                <td>
-                    <a href="{{ applicant.instagram_link }}" target="_blank"> {{ applicant.instagram_link }} </a>
-                </td>
-                <td>{{ applicant.instagram_id }}</td>
-                <td>{{ applicant.application_date }}</td>
-                <td>{{ applicant.application_day }}</td>
-                <td>{{ applicant.data_completion }}</td>
-                <td>{{ applicant.data_check }}</td>
-            </tr>
+            <td>
+                {% with applicant.file_set.first as image_file %}
+                {% if image_file %}
+                    <a href="{{ image_file.file_data.url }}" target="_blank">
+                        <img src="{{ image_file.file_data.url }}" alt="{{ applicant.applicant_name }}'s Image" style="height: 100px;">
+                    </a>
+                {% endif %}
+                {% endwith %}
+            </td>
+            <td>{{ applicant.gender }}</td>
+            <td>{{ applicant.nationality }}</td>
+            <td>{{ applicant.birth_year }}</td>
+            <td>{{ applicant.height }}</td>
+            <td>{{ applicant.weight }}</td>
+            <td>{{ applicant.chest }} - {{ applicant.waist }} - {{ applicant.hips }}</td>
+            <td>{{ applicant.languages }}</td>
+            <td>
+                <a href="{{ applicant.instagram_link }}" target="_blank"> {{ applicant.instagram_link }} </a>
+            </td>
+            <td>{{ applicant.instagram_id }}</td>
+            <td>{{ applicant.application_date }}</td>
+            <td>{{ applicant.application_day }}</td>
+            <td>{{ applicant.data_completion }}</td>
+            <td>{{ applicant.data_check }}</td>
+        </tr>
         {% endfor %}
         {% else %}
         <tr>

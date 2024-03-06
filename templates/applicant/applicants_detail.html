@@ -21,6 +21,18 @@
         <div class="detail-item-content">{{ applicant.applicant_name }}</div>
     </div>
     <div class="detail-item">
+        <div class="detail-item-title">이미지</div>
+        <div class="detail-item-content">
+            {% for file in applicant.file_set.all %}
+                <a href="{{ file.file_data.url }}" target="_blank">
+                    <img src="{{ file.file_data.url }}" alt="지원자 이미지" style="max-width: 200px; height: auto;">
+                </a>
+            {% empty %}
+                <p>이미지가 없습니다.</p>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="detail-item">
         <div class="detail-item-title">성별</div>
         <div class="detail-item-content">{{ applicant.gender }}</div>
     </div>
