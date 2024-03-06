@@ -3,7 +3,6 @@ from django.db import models
 class Applicant(models.Model):
     unique_no = models.CharField(max_length=100, verbose_name='지원자 고유번호')
     applicant_name = models.CharField(max_length=50, verbose_name='지원자 명')
-    # img = models.ImageField("이미지", upload_to="file", blank=True)
     gender = models.CharField(max_length=10, verbose_name='성별')
     nationality = models.CharField(max_length=3, verbose_name='국가')
     birth_year = models.DateField(verbose_name='생년월일')
@@ -19,11 +18,13 @@ class Applicant(models.Model):
     application_day = models.CharField(max_length=7, verbose_name='지원일 순차')
     data_completion = models.DateTimeField(auto_now=False, verbose_name='데이터 백업일')
     data_check = models.DateTimeField(verbose_name='데이터 확인일자(매니저)')
+    employee = models.ForeignKey('employees.Employees', on_delete=models.CASCADE)                  # 직원 테이블 PK
+    # file = models.ForeignKey('file.File', on_delete=models.CASCADE)                               # 파일 테이블 PK
+    # img = models.ImageField("이미지", upload_to="file", blank=True)
     # charge = models.ForeignKey(employees, on_delete=models.CASCADE, verbose_name='담당자')
+
+    class Meta:
+        db_table = '"public"."applicant"'  # 스키마와 테이블 이름 지정
 
     def __str__(self):                  # Applicant 모델 데이터 조회 결과에 속성값 보여주기
         return self.applicant_name
-
-
-
-

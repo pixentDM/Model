@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-lxd7_yf110460b0gl^9m+i=r9u4mt$omlboe&f3m1$c^x4!2q8
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'ec2-43-201-82-33.ap-northeast-2.compute.amazonaws.com',
+    # 'ec2-43-201-82-33.ap-northeast-2.compute.amazonaws.com',
     # '0.0.0.0:8080',
     'localhost',    # 배포 시 주석 처리해야함
     '127.0.0.1',    # 배포 시 주석 처리해야함
@@ -39,8 +39,17 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
+    'employees',            # 직원
     'applicant',            # 오디션 지원자
     'grades',               # 모델 등급
+    'progress',             # 1차 합격자 진행현황
+    'file',                 # 파일
+    'meeting',              # 미팅
+    'users',                # 회원가입
+    'department',           # 부서
+    'position',             # 직위
+    'first_pass',           # 1차 합격자 명단
+    'second_pass',          # 2차 합격자 명단
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -86,8 +95,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'model',
+        'USER': 'postgres',
+        'PASSWORD': '0601',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
