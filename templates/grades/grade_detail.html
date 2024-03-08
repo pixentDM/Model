@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>지원자 등급 상세</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'applicant/applicant_css.css' %}">
+</head>
+<body>
+<div class="detail-container">
+    <div class="detail-header">
+        상세 정보
+    </div>
+    <div class="detail-item">
+        <div class="detail-item-title">지원자 고유번호</div>
+        <div class="detail-item-content">{{ grade.applicant.unique_no }}</div>
+    </div>
+    <div class="detail-item">
+        <div class="detail-item-title">지원자 명</div>
+        <div class="detail-item-content">{{ grade.applicant.applicant_name }}</div>
+    </div>
+    <div class="detail-item">
+        <div class="detail-item-title">이미지</div>
+        <div class="detail-item-content">
+            {% for file in applicant.file_set.all %}
+                <a href="{{ file.file_data.url }}" target="_blank">
+                    <img src="{{ file.file_data.url }}" alt="지원자 이미지" style="max-width: 200px; height: auto;">
+                </a>
+            {% empty %}
+                <p>이미지가 없습니다.</p>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="detail-item">
+        <div class="detail-item-title">성별</div>
+        <div class="detail-item-content">{{ grade.applicant.gender }}</div>
+    </div>
+    <div class="detail-item">
+        <div class="detail-item-title">국가</div>
+        <div class="detail-item-content">{{ grade.applicant.nationality }}</div>
+    </div>
+    <div class="detail-item">
+        <div class="detail-item-title">생년월일</div>
+        <div class="detail-item-content">{{ grade.applicant.birth_year }}</div>
+    </div>
+    <div class="detail-item">
+        <div class="detail-item-title">키</div>
+        <div class="detail-item-content">{{ grade.applicant.height }}cm</div>
+    </div>
+    <div class="detail-item">
+        <div class="detail-item-title">몸무게</div>
+        <div class="detail-item-content">{{ grade.applicant.weight }}kg</div>
+    </div>
+    <div class="detail-item">
+        <div class="detail-item-title">가슴 size</div>
+        <div class="detail-item-content">{{ grade.applicant.chest }}</div>
+    </div>
+    <div class="detail-item">
+        <div class="detail-item-title">허리 size</div>
+        <div class="detail-item-content">{{ grade.applicant.waist }}</div>
+    </div>
+    <div class="detail-item">
+        <div class="detail-item-title">엉덩이 size</div>
+        <div class="detail-item-content">{{ grade.applicant.hips }}</div>
+    </div>
+    <div class="detail-item">
+        <div class="detail-item-title">사용가능 언어</div>
+        <div class="detail-item-content">{{ grade.applicant.languages }}</div>
+    </div>
+    <div class="detail-item">
+        <div class="detail-item-title">인스타그램 링크</div>
+        <div class="detail-item-content"><a href="{{ applicant.instagram_link }}" target="_blank">{{ grade.applicant.instagram_link }}</a></div>
+    </div>
+    <div class="detail-item">
+        <div class="detail-item-title">1차 합격 여부</div>
+        <div class="detail-item-content">{{ grade.firstStage_grade }}</div>
+    </div>
+    <div class="detail-item">
+        <div class="detail-item-title">2차 합격 여부</div>
+        <div class="detail-item-content">{{ grade.secondStage_grade }}</div>
+    </div>
+    <!-- 로그인, 회원가입 구현하면 IF함수 써서 담당자일때만 뜰 수 있도록 수정 -->
+    <div class="my-3">
+        <a href="{% url 'grades:grade_list' %}" class="btn btn-sm btn-outline-secondary">목록</a>
+
+    </div>
+</div>
+</body>
+</html>

@@ -27,6 +27,8 @@ def applicants(request):    # 오디션 지원자 현황
         # 검색 범위에 따라 쿼리 구성
         if search_field == 'applicant_name':
             query |= Q(applicant_name__icontains=kw)
+        elif search_field == 'unique_no':
+            query |= Q(unique_no__icontains=kw)
         elif search_field == 'gender':
             query |= Q(gender__icontains=kw)
         elif search_field == 'nationality':
@@ -76,12 +78,11 @@ def applicants(request):    # 오디션 지원자 현황
                 }
                 return render(request, 'applicant/applicants_list.html', context)
 
-    # 데이터 정렬(데이터 백업일_내림차순 => 지원일_오름차순 => 지원자 고유번호_오름차순)
-    # applicants_list = Applicant.objects.filter(query).order_by('-data_completion__date', 'application_date',
-    #                                                           'unique_no').distinct()
-    applicants_list = Applicant.objects.filter(query).prefetch_related('file_set').order_by('-data_completion__date',
-                                                                                            'application_date',
-                                                                                            'unique_no').distinct()
+    # 데이터 정렬(데이터 백업일_내림차순)
+    applicants_list = Applicant.objects.filter(query).prefetch_related('file_set').order_by('-data_completion').distinct()
+
+    for applicant in applicants_list:
+        print(applicant.data_completion, applicant.unique_no)
 
     # 페이징 처리
     paginator = Paginator(applicants_list, 15)  # 페이지당 15개씩 보여주기

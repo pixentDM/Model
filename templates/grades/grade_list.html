@@ -29,12 +29,16 @@
         {% for grade in all_grades %}
         <tr>
             <td>{{ grade.applicant.unique_no }}</td>
-            <td>{{ grade.applicant.applicant_name}}</td>
+            <td>
+                <a href="{% url 'grades:grade_detail' grade_id=grade.pk %}">
+                    {{ grade.applicant.applicant_name }}
+                </a>
+            </td>
             <td>{{ grade.applicant.gender }}</td>
             <td>{{ grade.applicant.nationality }}</td>
             <td>{{ grade.applicant.birth_year }}</td>
-            <td>{{ grade.applicant.height }}</td>
-            <td>{{ grade.applicant.weight }}</td>
+            <td>{{ grade.applicant.height }} cm</td>
+            <td>{{ grade.applicant.weight }} kg</td>
             <td>{{ grade.applicant.chest }} - {{ grade.applicant.waist }} - {{ grade.applicant.hips }}</td>
             <td>{{ grade.applicant.languages }}</td>
             <td>

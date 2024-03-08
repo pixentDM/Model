@@ -17,6 +17,7 @@
     <div class="row justify-content-end my-3">
         <form id="searchForm" method="get" action="{% url 'applicant:applicants' %}" class="col-4 input-group">
             <select name="search_field" id="search_field" class="custom-select">
+                <option value="unique_no">지원자 고유번호</option>
                 <option value="applicant_name">이름</option>
                 <option value="gender">성별</option>
                 <option value="nationality">국가</option>
@@ -83,8 +84,8 @@
             <td>{{ applicant.gender }}</td>
             <td>{{ applicant.nationality }}</td>
             <td>{{ applicant.birth_year }}</td>
-            <td>{{ applicant.height }}</td>
-            <td>{{ applicant.weight }}</td>
+            <td>{{ applicant.height }} cm</td>
+            <td>{{ applicant.weight }} kg</td>
             <td>{{ applicant.chest }} - {{ applicant.waist }} - {{ applicant.hips }}</td>
             <td>{{ applicant.languages }}</td>
             <td>
