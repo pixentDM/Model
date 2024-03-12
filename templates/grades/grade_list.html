@@ -8,6 +8,40 @@
 </head>
 <body>
 <div class="container my-3">
+    {% if error_message %}
+    <div class="alert alert-danger">
+        {{ error_message }}
+    </div>
+    {% endif %}
+    <!-- 검색 폼 start -->
+    <div class="row justify-content-end my-3">
+        <form id="searchForm" method="get" action="{% url 'grades:grade_list' %}" class="col-4 input-group">
+            <select name="search_field" id="search_field" class="custom-select">
+                <option value="applicant__unique_no">지원자 고유번호</option>
+                <option value="applicant__applicant_name">이름</option>
+                <option value="applicant__gender">성별</option>
+                <option value="applicant__nationality">국가</option>
+                <option value="applicant__birth_year">생년월일(ex. 2024-02-23)</option>
+                <option value="applicant__height">키</option>
+                <option value="applicant__weight">몸무게</option>
+                <option value="applicant__chest">가슴 size</option>
+                <option value="applicant__waist">허리 size</option>
+                <option value="applicant__hips">엉덩이 size</option>
+                <option value="applicant__languages">사용가능언어</option>
+                <option value="applicant__instagram_link">인스타그램 링크</option>
+                <option value="firstStage_grade">1차 등급</option>
+                <option value="secondStage_grade">2차 등급</option>
+                <option value="nopass">불합격</option>
+                <option value="employee__users__username">담당자</option>
+            </select>
+            <input type="text" class="form-control" name="kw" value="{{ kw|default_if_none:'' }}">
+            <input type="hidden" name="page" value="{{ page }}">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit">검색</button>
+            </div>
+        </form>
+    </div>
+    <!-- 검색 폼 end -->
     <table class="table">
         <thead>
         <tr class="thead-dark">
@@ -23,6 +57,8 @@
             <th>인스타그램 링크</th>
             <th>1차 합격 여부</th>
             <th>2차 합격 여부</th>
+            <th>불합격</th>
+            <th>담당자</th>
         </tr>
         </thead>
         <tbody>
@@ -44,8 +80,10 @@
             <td>
                 <a href="{{ grade.applicant.instagram_link }}" target="_blank"> {{ grade.applicant.instagram_id }} </a>
             </td>
-            <td>{{ grade.firstStage_grade }}</td>
-            <td>{{ grade.secondStage_grade }}</td>
+            <td>{{ grade.firstStage_grade|default:"" }}</td>            <!-- default:"" = 데이터 값이 없을때 빈 문자열로 표시 -->
+            <td>{{ grade.secondStage_grade|default:"" }}</td>
+            <td>{{ grade.nopass|default:"" }}</td>
+            <td>{{ grade.employee }}</td>
         </tr>
         {% empty %}
         <tr>
@@ -53,6 +91,67 @@
         </tr>
         {% endfor %}
     </table>
+    <!-- 페이징 처리 시작 -->
+    <ul class="pagination justify-content-center">
+        <!-- 이전 페이지 -->
+        {% if all_grades.has_previous %}
+        <li class="page-item">
+            <a class="page-link"
+                data-page="{{ all_grades.previous_page_number }}" href="#">이전</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">
+                이전
+            </a>
+        </li>
+        {% endif %}
+        <!-- 페이지 리스트 -->
+        {% for page_number in all_grades.paginator.page_range %}
+        {% if page_number >= all_grades.number|add:-5 and page_number <= all_grades.number|add:5 %}
+            {% if page_number == all_grades.number %}
+            <li class="page-item active" aria-current="page">
+                <a class="page-link" data-page="{{ page_number }}" href="#">
+                    {{ page_number }}
+                </a>
+            </li>
+            {% else %}
+            <li class="page-item">
+                <a class="page-link" data-page="{{ page_number }}" href="#">
+                    {{ page_number }}
+                </a>
+            </li>
+            {% endif %}
+        {% endif %}
+        {% endfor %}
+        <!-- 다음 페이지 -->
+        {% if all_grades.has_next %}
+        <li class="page-item">
+            <a class="page-link" data-page="{{ all_grades.next_page_number }}" href="#">다음</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">
+                다음
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+    <!-- 페이징 처리 끝 -->
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    $(".page-link").on('click', function(e) {
+        e.preventDefault();
+        var page = $(this).data("page");
+        var form = $("#searchForm");
+        form.find('input[name="page"]').val(page);
+        form.submit();
+    });
+});
+</script>
 </body>
 </html>
+

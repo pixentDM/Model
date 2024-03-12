@@ -1,10 +1,8 @@
 from datetime import datetime
 
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.db.models import Q, IntegerField
-from django.db.models.functions import Cast
+from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
-from django.utils.dateparse import parse_date
 
 from applicant.forms import ApplicantForm
 from applicant.models import Applicant
@@ -80,9 +78,6 @@ def applicants(request):    # 오디션 지원자 현황
 
     # 데이터 정렬(데이터 백업일_내림차순)
     applicants_list = Applicant.objects.filter(query).prefetch_related('file_set').order_by('-data_completion').distinct()
-
-    for applicant in applicants_list:
-        print(applicant.data_completion, applicant.unique_no)
 
     # 페이징 처리
     paginator = Paginator(applicants_list, 15)  # 페이지당 15개씩 보여주기

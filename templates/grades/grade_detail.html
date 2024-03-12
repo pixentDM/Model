@@ -70,20 +70,28 @@
     </div>
     <div class="detail-item">
         <div class="detail-item-title">인스타그램 링크</div>
-        <div class="detail-item-content"><a href="{{ applicant.instagram_link }}" target="_blank">{{ grade.applicant.instagram_link }}</a></div>
+        <div class="detail-item-content"><a href="{{ grade.applicant.instagram_link }}" target="_blank">{{ grade.applicant.instagram_link }}</a></div>
     </div>
     <div class="detail-item">
         <div class="detail-item-title">1차 합격 여부</div>
-        <div class="detail-item-content">{{ grade.firstStage_grade }}</div>
+        <div class="detail-item-content">{{ grade.firstStage_grade|default:"" }}</div>          <!-- default:"" = 데이터 값이 없을때 빈 문자열로 표시 -->
     </div>
     <div class="detail-item">
         <div class="detail-item-title">2차 합격 여부</div>
-        <div class="detail-item-content">{{ grade.secondStage_grade }}</div>
+        <div class="detail-item-content">{{ grade.secondStage_grade|default:"" }}</div>
+    </div>
+    <div class="detail-item">
+        <div class="detail-item-title">불합격</div>
+        <div class="detail-item-content">{{ grade.nopass|default:"" }}</div>
+    </div>
+    <div class="detail-item">
+        <div class="detail-item-title">담당자</div>
+        <div class="detail-item-content">{{ grade.employee }}</div>
     </div>
     <!-- 로그인, 회원가입 구현하면 IF함수 써서 담당자일때만 뜰 수 있도록 수정 -->
     <div class="my-3">
         <a href="{% url 'grades:grade_list' %}" class="btn btn-sm btn-outline-secondary">목록</a>
-
+        <a href="{% url 'grades:grade_modify' grade.applicant.id %}" class="btn btn-sm btn-outline-secondary">수정</a>
     </div>
 </div>
 </body>

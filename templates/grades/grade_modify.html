@@ -3,22 +3,83 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>지원자 정보 수정</title>
+    <title>지원자 등급 상세</title>
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'applicant/applicant_css.css' %}">
 </head>
 <body>
 <div class="detail-container">
     <div class="detail-header">
-        정보 수정
+        상세 정보
     </div>
-    <!-- 폼 시작 -->
-    <form method="post" action="{% url 'applicant:applicants_modify' applicant_id=applicant.id %}" enctype="multipart/form-data">
-        {% csrf_token %}
-        <!-- form.as_p를 사용하여 나머지 필드를 자동으로 렌더링. -->
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-sm btn-outline-secondary">저장</button>
-    </form>
+    <form method="post" action="{% url 'grades:grade_modify' grade_id=grade.pk %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="detail-item">
+        지원자 고유번호: {{ grade.applicant.unique_no }}
+    </div>
+    <div class="detail-item">
+        지원자 명: {{ grade.applicant.applicant_name }}
+    </div>
+    <div class="detail-item">
+    <div class="detail-item-title">이미지</div>
+    <div class="detail-item-content">
+        {% for file in grade.applicant.file_set.all %}
+            <a href="{{ file.file_data.url }}" target="_blank">
+                <img src="{{ file.file_data.url }}" alt="{{ grade.applicant.applicant_name }} 이미지" style="max-width: 200px; height: auto;">
+            </a>
+        {% empty %}
+            <p>이미지가 없습니다.</p>
+        {% endfor %}
+    </div>
+</div>
+    <div class="detail-item">
+        성별: {{ grade.applicant.gender }}
+    </div>
+    <div class="detail-item">
+        국가: {{ grade.applicant.nationality }}
+    </div>
+    <div class="detail-item">
+        생년월일: {{ grade.applicant.birth_year }}
+    </div>
+    <div class="detail-item">
+        키: {{ grade.applicant.height }}
+    </div>
+    <div class="detail-item">
+        몸무게: {{ grade.applicant.weight }}
+    </div>
+    <div class="detail-item">
+        가숨 size: {{ grade.applicant.chest }}
+    </div>
+    <div class="detail-item">
+        허리 size: {{ grade.applicant.waist }}
+    </div>
+    <div class="detail-item">
+        엉덩이 size: {{ grade.applicant.hips }}
+    </div>
+    <div class="detail-item">
+        사용가능 언어: {{ grade.applicant.languages }}
+    </div>
+    <div class="detail-item">
+        인스타그램 링크: <a href="{{ grade.applicant.instagram_link }}" target="_blank">{{ grade.applicant.instagram_link }}</a>
+    </div>
+
+    <!-- 1차 등급, 2차 등급, 불합격은 form 필드로 렌더링하여 수정 가능하게 함 -->
+    <div class="detail-item">
+        {{ form.firstStage_grade.label_tag }}
+        {{ form.firstStage_grade }}
+    </div>
+    <div class="detail-item">
+        {{ form.secondStage_grade.label_tag }}
+        {{ form.secondStage_grade }}
+    </div>
+    <div class="detail-item">
+        {{ form.nopass.label_tag }}
+        {{ form.nopass }}
+    </div>
+    {{ form.as_p }}
+    <!-- 저장 버튼 -->
+    <button type="submit" class="btn btn-sm btn-outline-secondary">저장</button>
+</form>
 </div>
 </body>
 </html>

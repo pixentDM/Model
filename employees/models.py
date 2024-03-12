@@ -16,4 +16,4 @@ class Employees(models.Model):
         db_table = '"public"."employees"'  # 스키마와 테이블 이름 지정
 
     def __str__(self):
-        return self.employee_id
+        return self.users.username          # users 테이블에 username 필드를 가져옴
