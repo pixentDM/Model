@@ -27,11 +27,8 @@ SECRET_KEY = 'django-insecure-lxd7_yf110460b0gl^9m+i=r9u4mt$omlboe&f3m1$c^x4!2q8
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    # 'ec2-43-201-82-33.ap-northeast-2.compute.amazonaws.com',
-    # '0.0.0.0:8080',
     'localhost',    # 배포 시 주석 처리해야함
     '127.0.0.1',    # 배포 시 주석 처리해야함
-    # '*',
 ]
 
 
@@ -140,16 +137,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATICFILES_DIRS = [BASE_DIR / 'static']
-# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticModel')
 
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
 MEDIA_URL = "media/"
 MEDIA_ROOT = BASE_DIR / "media"
-# 이미지 필요할 때 주석 제거하기!!(config/urls.py 파일 밑부분도 주석 제거해야함)
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

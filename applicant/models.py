@@ -26,3 +26,7 @@ class Applicant(models.Model):
 
     def __str__(self):                  # Applicant 모델 데이터 조회 결과에 속성값 보여주기
         return self.applicant_name
+
+
+
+

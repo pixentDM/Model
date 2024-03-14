@@ -17,3 +17,7 @@ class Employees(models.Model):
 
     def __str__(self):
         return self.users.username          # users 테이블에 username 필드를 가져옴
+
+
+
+

@@ -76,9 +76,6 @@ def grade_list(request):
 
     all_grades = Grades.objects.select_related('applicant', 'employee').filter(query).order_by('pk')
 
-    print(f'Search Query: {query}')  # 콘솔에 검색 쿼리 출력
-    print(f'Filtered Results: {Grades.objects.filter(query)}')  # 콘솔에 검색 결과 출력
-
     # 페이징 처리
     paginator = Paginator(all_grades, 15)  # 페이지당 15개씩 보여주기
     try:

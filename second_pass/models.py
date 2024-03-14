@@ -11,3 +11,6 @@ class Second_pass(models.Model):
 
     class Meta:
         db_table = '"public"."second_pass"'  # 스키마와 테이블 이름 지정
+
+
+

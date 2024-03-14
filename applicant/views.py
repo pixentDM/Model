@@ -6,6 +6,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 
 from applicant.forms import ApplicantForm
 from applicant.models import Applicant
+from file.models import File
+from grades.models import Grades
 
 
 def applicants(request):    # 오디션 지원자 현황
@@ -131,3 +133,20 @@ def modify(request, applicant_id):
         'applicant': applicant
     }
     return render(request, 'applicant/applicants_modify.html', context)
+
+def delete_image(request, file_no):
+    if request.method == 'POST':
+        image = get_object_or_404(File, file_no=file_no)
+        image.delete()  # File 레코드와 관련 이미지 파일 삭제
+        return redirect('applicant:applicants_modify', applicant_id=image.applicant_id)
+
+
+def register_grade(request):
+    if request.method == 'POST':
+
+        request.session['selected_applicant_ids'] = request.POST.getlist('applicant_ids')
+
+        return redirect('applicant:grade_list')
+    else:
+        return redirect('applicant:applicants_list')
+

@@ -23,7 +23,7 @@
     <div class="detail-item">
         <div class="detail-item-title">이미지</div>
         <div class="detail-item-content">
-            {% for file in applicant.file_set.all %}
+            {% for file in grade.applicant.file_set.all %}
                 <a href="{{ file.file_data.url }}" target="_blank">
                     <img src="{{ file.file_data.url }}" alt="지원자 이미지" style="max-width: 200px; height: auto;">
                 </a>

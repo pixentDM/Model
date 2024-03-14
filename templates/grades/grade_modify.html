@@ -76,7 +76,9 @@
         {{ form.nopass.label_tag }}
         {{ form.nopass }}
     </div>
-    {{ form.as_p }}
+    <div class="detail-item">
+        담당자: {{ grade.employee.users }}
+    </div>
     <!-- 저장 버튼 -->
     <button type="submit" class="btn btn-sm btn-outline-secondary">저장</button>
 </form>

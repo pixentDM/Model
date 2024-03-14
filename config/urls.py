@@ -23,7 +23,7 @@ from config.views import index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", index),
+    path("", index), # 서버 실행 시 나타나는 메인 화면
     path("applicant/", include("applicant.urls")),
     path('grades/', include('grades.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) # 부트스트랩 적용을 위해 추가 된 코드
@@ -33,4 +33,3 @@ urlpatterns += static(
     document_root=settings.MEDIA_ROOT,
 
 )
-# 이미지 업로드 필요시 주석 제거!!!(settings.py 파일 밑부분도 주석 제거해야함)
